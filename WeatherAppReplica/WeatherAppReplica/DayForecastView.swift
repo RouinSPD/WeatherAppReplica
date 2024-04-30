@@ -63,7 +63,7 @@ struct DayForecastView: View {
                     .bold()
                     .frame(width: 50)
                 //.accessibilityLabel(Text("\(weather.temperatureHigh)° high"))
-                Spacer()
+                
             }
             .frame(width: UIScreen.screenWidth/2)
             // Spacer()

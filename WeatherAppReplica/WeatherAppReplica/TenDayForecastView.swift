@@ -10,6 +10,8 @@ import WeatherKit
 
 struct TenDayForecastView: View {
     var daysForecast : [DayWeather]
+    var maxTemp: Double = -1000
+    var minTemp: Double = 1000
     
     var body: some View {
         ZStack{
@@ -34,6 +36,9 @@ struct TenDayForecastView: View {
                 
                 ForEach(daysForecast, id:\.date) { dayForecast in
                     DayForecastView(dayWeather: dayForecast)
+                    if dayForecast.highTemperature.value > maxTemp {
+                        //maxTemp = dayForecast.highTemperature.value
+                    }
                     Divider()
                         .background(.white)
                         .opacity(0.5)
