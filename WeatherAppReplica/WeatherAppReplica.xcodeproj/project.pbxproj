@@ -18,6 +18,8 @@
 		E007B78D2BDE9F8F00A12A1B /* DayForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007B78C2BDE9F8F00A12A1B /* DayForecastView.swift */; };
 		E007B78F2BDEBA4500A12A1B /* TemperatureBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007B78E2BDEBA4500A12A1B /* TemperatureBar.swift */; };
 		E007B7912BDF8FD200A12A1B /* TenDayForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007B7902BDF8FD200A12A1B /* TenDayForecastViewModel.swift */; };
+		E007B7AF2BE16BB200A12A1B /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007B7AE2BE16BB200A12A1B /* WeatherViewModel.swift */; };
+		E007B7B12BE2739600A12A1B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007B7B02BE2739600A12A1B /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		E007B78C2BDE9F8F00A12A1B /* DayForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayForecastView.swift; sourceTree = "<group>"; };
 		E007B78E2BDEBA4500A12A1B /* TemperatureBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureBar.swift; sourceTree = "<group>"; };
 		E007B7902BDF8FD200A12A1B /* TenDayForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDayForecastViewModel.swift; sourceTree = "<group>"; };
+		E007B7AE2BE16BB200A12A1B /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		E007B7B02BE2739600A12A1B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				E007B7832BDAB97100A12A1B /* WeatherAppReplica.entitlements */,
 				E007B7752BDAB95000A12A1B /* WeatherAppReplicaApp.swift */,
 				E007B7772BDAB95000A12A1B /* ContentView.swift */,
+				E007B7B02BE2739600A12A1B /* LocationManager.swift */,
+				E007B7AE2BE16BB200A12A1B /* WeatherViewModel.swift */,
 				E007B78A2BDE9E7F00A12A1B /* TenDayForecastView.swift */,
 				E007B7902BDF8FD200A12A1B /* TenDayForecastViewModel.swift */,
 				E007B78C2BDE9F8F00A12A1B /* DayForecastView.swift */,
@@ -163,8 +169,10 @@
 				E007B78B2BDE9E7F00A12A1B /* TenDayForecastView.swift in Sources */,
 				E007B7872BDD3D4A00A12A1B /* HourlyForecastView.swift in Sources */,
 				E007B78F2BDEBA4500A12A1B /* TemperatureBar.swift in Sources */,
+				E007B7B12BE2739600A12A1B /* LocationManager.swift in Sources */,
 				E007B7852BDD3D2C00A12A1B /* HourlyForecast.swift in Sources */,
 				E007B7912BDF8FD200A12A1B /* TenDayForecastViewModel.swift in Sources */,
+				E007B7AF2BE16BB200A12A1B /* WeatherViewModel.swift in Sources */,
 				E007B7782BDAB95000A12A1B /* ContentView.swift in Sources */,
 				E007B78D2BDE9F8F00A12A1B /* DayForecastView.swift in Sources */,
 				E007B7762BDAB95000A12A1B /* WeatherAppReplicaApp.swift in Sources */,

@@ -10,7 +10,7 @@ import WeatherKit
 
 struct HourlyForecastView: View {
     var hourlyForecast : [HourWeather]
-    var weather : Weather
+    var weather : String
     
     var body: some View {
         ZStack {
@@ -19,7 +19,7 @@ struct HourlyForecastView: View {
             VStack{
                 Text("Cloudy conditions expected around 23:00.")
                     
-                Text(weather.currentWeather.condition.description)
+                Text(weather)
                     .foregroundColor(.white)
                     .font(.callout)
                 Divider()
