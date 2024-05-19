@@ -10,18 +10,15 @@ import WeatherKit
 
 struct HourlyForecastView: View {
     var hourlyForecast : [HourWeather]
-    var weather : String
     
     var body: some View {
         ZStack {
             //Color(.blue)
             //Image("pinkSky")
             VStack{
-                Text("Cloudy conditions expected around 23:00.")
-                    
-                Text(weather)
-                    .foregroundColor(.white)
-                    .font(.callout)
+                
+                TitleView(title: "Hourly forecast", imageName: "clock")
+                    .padding(.horizontal)
                 Divider()
                 ScrollView(.horizontal) {
                     HStack {

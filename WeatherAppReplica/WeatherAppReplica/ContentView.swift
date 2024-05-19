@@ -28,17 +28,27 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            
-            Text("Houston")
-                .font(.largeTitle)
-            //                Text("\(weatherViewModel.currentWeather.temperature.formatted())")
+            location
+            Text("\(Int(weatherViewModel.currentTemperature))°C | \(weatherViewModel.weatherDescription)")
+            //Text()
+           
             ScrollView {
-                HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts, weather: weatherViewModel.weatherDescription)
+                HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts)
                 TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts)
+                HStack(spacing:15){
+                    FeelsLikeView(feelsLikeDescription: weatherViewModel.feelsLikeDescription, currentTemperature: weatherViewModel.currentTemperature)
+                    HumidityView(humidity: weatherViewModel.humidity, dewPoint: weatherViewModel.dewPointDescription)
+                }
+                HStack(spacing: 15){
+                    VisibilityView(visibility: weatherViewModel.visibilityValue)
+                    UVIndexView(uvIndexValue: weatherViewModel.uvIndexValue, uvIndexDescription: weatherViewModel.uvIndexDescription)
+                }h
             }
             
             //Spacer()
+            
         }
+        .padding(.top)
         //.padding()
         .onAppear {
             locationManager.requestLocation()
@@ -49,6 +59,19 @@ struct ContentView: View {
             }
         }
         
+    }
+    
+    var location: some View{
+        VStack {
+            if let location = locationManager.currentLocation {
+                if let cityName = locationManager.cityName {
+                    Text("\(cityName)")
+                        .font(.largeTitle)
+                }
+            } else {
+                Text("Locating...")
+            }
+        }
     }
 }
 

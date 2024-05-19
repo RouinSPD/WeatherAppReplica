@@ -32,6 +32,8 @@ struct TemperatureBar: View {
                     .frame(width: UIScreen.screenWidth*0.2, height: 6)
                     .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green, Color.yellow]), startPoint: .leading, endPoint: .trailing))
                     .cornerRadius(20)
+                
+                
 //
 //                    .frame(width: upperBoundOffset - lowerBoundOffset, height: 8)
 //                    .offset(x: lowerBoundOffset, y: 0)
