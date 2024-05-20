@@ -28,25 +28,30 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            location
-            Text("\(Int(weatherViewModel.currentTemperature))°C | \(weatherViewModel.weatherDescription)")
-            //Text()
-           
-            ScrollView {
-                HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts)
-                TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts)
-                HStack(spacing:15){
-                    FeelsLikeView(feelsLikeDescription: weatherViewModel.feelsLikeDescription, currentTemperature: weatherViewModel.currentTemperature)
-                    HumidityView(humidity: weatherViewModel.humidity, dewPoint: weatherViewModel.dewPointDescription)
+            if weatherViewModel.isLoading {
+                ProgressView("Loading...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(2)
+            } else {
+                location
+                Text("\(Int(weatherViewModel.currentTemperature))°C | \(weatherViewModel.weatherDescription)")
+                //Text()
+                
+                ScrollView {
+                    HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts)
+                    TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts)
+                    HStack(spacing:15){
+                        FeelsLikeView(feelsLikeDescription: weatherViewModel.feelsLikeDescription, currentTemperature: weatherViewModel.currentTemperature)
+                        HumidityView(humidity: weatherViewModel.humidity, dewPoint: weatherViewModel.dewPointDescription)
+                    }
+                    HStack(spacing: 15){
+                        VisibilityView(visibility: weatherViewModel.visibilityValue)
+                        UVIndexView(uvIndexValue: weatherViewModel.uvIndexValue, uvIndexDescription: weatherViewModel.uvIndexDescription)
+                    }
                 }
-                HStack(spacing: 15){
-                    VisibilityView(visibility: weatherViewModel.visibilityValue)
-                    UVIndexView(uvIndexValue: weatherViewModel.uvIndexValue, uvIndexDescription: weatherViewModel.uvIndexDescription)
-                }h
+                
+                //Spacer()
             }
-            
-            //Spacer()
-            
         }
         .padding(.top)
         //.padding()

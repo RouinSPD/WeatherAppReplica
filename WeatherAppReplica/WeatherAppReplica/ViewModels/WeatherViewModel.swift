@@ -42,7 +42,9 @@ class WeatherViewModel : ObservableObject{
                     self?.weatherDescription = weather.currentWeather.condition.description
                     self?.isLoading = false
                     self?.dailyForecasts = weather.dailyForecast.forecast
-                    self?.hourlyForecasts = Array(weather.hourlyForecast.forecast.prefix(24))
+                    self?.hourlyForecasts = Array(weather.hourlyForecast.forecast.filter {
+                        $0.date >= Date()
+                    }.prefix(24).map { $0 } )
                     self?.currentTemperature = weather.currentWeather.temperature.value
                     self?.humidity = Int(weather.currentWeather.humidity*100)
                     self?.dewPointDescription =  Int(weather.currentWeather.dewPoint.value.rounded())
