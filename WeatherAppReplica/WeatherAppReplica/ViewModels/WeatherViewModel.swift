@@ -23,6 +23,10 @@ class WeatherViewModel : ObservableObject{
     @Published var visibilityValue : Int = 0
     @Published var uvIndexValue : Int = 0
     @Published var uvIndexDescription : String = ""
+    @Published var windSpeed : Int = 0
+    @Published var windGust : Int = 0
+    @Published var windCompassDirection : String = ""
+    @Published var precipitation : Int = 0
     // var cancellables = Set<AnyCancellable>()
     private var weatherService = WeatherService()
     
@@ -54,7 +58,13 @@ class WeatherViewModel : ObservableObject{
                     self?.uvIndexDescription = weather.currentWeather.uvIndex.category.description
 //                    weather.currentWeather.cloudCover.animatableData
 //                    weather.currentWeather.precipitationIntensity.
-                    
+                    self?.windSpeed = Int(weather.currentWeather.wind.speed.value.rounded())
+                    if let windGust = weather.currentWeather.wind.gust{
+                        self?.windGust = Int(windGust.value.rounded())
+                    }
+                    self?.windCompassDirection = weather.currentWeather.wind.compassDirection.abbreviation
+                    self?.precipitation = Int(weather.currentWeather.precipitationIntensity.value.rounded())
+                    //weather.currentWeather.wind.compassDirection.
                 }
             }
             catch{

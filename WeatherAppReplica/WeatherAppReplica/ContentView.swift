@@ -16,6 +16,7 @@ struct ContentView: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private  var weatherViewModel = WeatherViewModel()
     
+    
     //    var hourlyWeatherData: [HourWeather]{
     //        if let weather{
     //            return Array(weather.hourlyForecast.filter{ hourlyWeather in
@@ -35,17 +36,20 @@ struct ContentView: View {
             } else {
                 location
                 Text("\(Int(weatherViewModel.currentTemperature))°C | \(weatherViewModel.weatherDescription)")
-                //Text()
+                Text("\(weatherViewModel.windCompassDirection)")
                 
                 ScrollView {
                     HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts)
-                    TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts)
+                    let (maxTemp, minTemp) = weatherViewModel.temperatureExtremes()
+                    TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts, maxTemp: maxTemp, minTemp: minTemp, currentTemperature: weatherViewModel.currentTemperature)
+            
                     HStack(spacing:15){
                         FeelsLikeView(feelsLikeDescription: weatherViewModel.feelsLikeDescription, currentTemperature: weatherViewModel.currentTemperature)
                         HumidityView(humidity: weatherViewModel.humidity, dewPoint: weatherViewModel.dewPointDescription)
                     }
                     HStack(spacing: 15){
                         VisibilityView(visibility: weatherViewModel.visibilityValue)
+//                        CompassView(direction: "WSW")
                         UVIndexView(uvIndexValue: weatherViewModel.uvIndexValue, uvIndexDescription: weatherViewModel.uvIndexDescription)
                     }
                 }

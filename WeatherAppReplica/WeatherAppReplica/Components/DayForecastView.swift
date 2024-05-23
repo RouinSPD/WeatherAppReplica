@@ -10,17 +10,17 @@ import WeatherKit
 struct DayForecastView: View {
     
     var dayWeather:  DayWeather
-    let minScaleTemp : Double = 8// Minimum temperature for the scale
-    let maxScaleTemp : Double = 20  // Maximum temperature for the scale
-    
+    let minScaleTemp : Double // Minimum temperature for the scale
+    let maxScaleTemp : Double   // Maximum temperature for the scale
+    let currentTemperature : Double
     var body: some View {
         
         HStack {
             
             VStack(alignment: .leading){
                 Text(dayWeather.date.formatAbbreviatedDay())
-                    .font(.title2)
-                    .bold()
+                    .font(.title3)
+                    .fontWeight(.medium)
                     .frame(width: UIScreen.screenWidth/8)//sets the frame for the text
                     Spacer()
                 
@@ -54,13 +54,13 @@ struct DayForecastView: View {
                 // Spacer()
                 
                 // Temperature bar
-                TemperatureBar(lowTemperature: dayWeather.lowTemperature.value, highTemperature: dayWeather.highTemperature.value, minScaleTemp: minScaleTemp, maxScaleTemp: maxScaleTemp)
+                TemperatureBar(lowTemperature: dayWeather.lowTemperature.value, highTemperature: dayWeather.highTemperature.value, currentTemperature: currentTemperature, minScaleTemp: minScaleTemp, maxScaleTemp: maxScaleTemp)
                     .frame(height: 8)
                 //.fixedSize(horizontal: false, vertical: true)
                 
                 Text((dayWeather.highTemperature.formatted(.measurement(numberFormatStyle: .number.precision(.fractionLength(0))))).dropLast(1))
                     .font(.title3)
-                    .bold()
+                    .fontWeight(.semibold)
                     .frame(width: 50)
                 //.accessibilityLabel(Text("\(weather.temperatureHigh)° high"))
                 
