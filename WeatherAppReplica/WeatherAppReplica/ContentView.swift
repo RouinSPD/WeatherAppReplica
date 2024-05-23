@@ -39,7 +39,7 @@ struct ContentView: View {
                 Text("\(weatherViewModel.windCompassDirection)")
                 
                 ScrollView {
-                    HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts)
+                    HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts,  currentTemperature: weatherViewModel.currentTemperature, currentWeatherSymbol: weatherViewModel.currentWeatherSymbol)
                     let (maxTemp, minTemp) = weatherViewModel.temperatureExtremes()
                     TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts, maxTemp: maxTemp, minTemp: minTemp, currentTemperature: weatherViewModel.currentTemperature)
             

@@ -10,7 +10,8 @@ import WeatherKit
 
 struct HourlyForecastView: View {
     var hourlyForecast : [HourWeather]
-//    var dayWeather:  DayWeather
+    var currentTemperature : Double
+    var currentWeatherSymbol : String
     var body: some View {
         ZStack {
             //Color(.blue)
@@ -22,7 +23,7 @@ struct HourlyForecastView: View {
                 Divider()
                 ScrollView(.horizontal) {
                     HStack {
-                        
+                        currentHour
                         ForEach(hourlyForecast, id:\.date) { hourWeatherItem in
                             HourForecastView(hourWeather: hourWeatherItem)
                             //.accessibilityLabel(Text(hourWeatherItem.accesibilityText))
@@ -38,25 +39,26 @@ struct HourlyForecastView: View {
                 .padding()
         }
     }
-//    var currentHour : some View{
-//        VStack{
-//            Text("Now")
-//                .foregroundColor(.white)
-//                .font(.headline)
-//            
-//            Image(systemName: ("\(hourWeather.symbolName).fill"))
-//                .symbolRenderingMode(.multicolor)
-//                .frame(width: 20, height: 20)
-//                .font(.headline)
-//            
-//            Text((hourWeather.temperature.formatted(.measurement(numberFormatStyle: .number.precision(.fractionLength(0))))).dropLast(1))
-//                .foregroundColor(.white)
-//                .font(.headline)
-//            
-//        }
-//        //.accessibilityElement(children: .combine)
-//        .padding(.horizontal, 7)
-//    }
+    var currentHour : some View{
+        VStack{
+            Text("Now")
+                .foregroundColor(.white)
+                .font(.headline)
+            
+            Image(systemName: ("\(currentWeatherSymbol).fill"))
+                .symbolRenderingMode(.multicolor)
+                .font(.title3)
+                .frame(width: UIScreen.screenWidth/16)
+                .padding(.vertical,5)
+           // Text((hourWeather.temperature.formatted(.measurement(numberFormatStyle: .number.precision(.fractionLength(0))))).dropLast(1))
+            Text("\(Int(currentTemperature.rounded()))°")
+                .foregroundColor(.white)
+                .font(.headline)
+            
+        }
+        //.accessibilityElement(children: .combine)
+        .padding(.horizontal, 7)
+    }
 }
 
 //#Preview {

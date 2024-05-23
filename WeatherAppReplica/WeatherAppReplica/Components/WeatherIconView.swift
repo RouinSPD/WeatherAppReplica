@@ -15,11 +15,26 @@ struct WeatherIconView: View {
     var body: some View {
         VStack(spacing: 0) {
             // if dayWeather.precipitationChance*100 >= 20 && !dayWeather.symbolName.contains("sun.max"){
-            if precipitationChance*100 >= 20 && !symbolName.contains("sun.max") {
-                Image(systemName: ("\(symbolName).rain.fill"))
+            if symbolName.contains("sun.max"){
+                Image(systemName: ("\(symbolName).fill"))
                     .symbolRenderingMode(.multicolor)
                     .font(.title3)
                     .frame(width: UIScreen.screenWidth/16)
+            }
+            else if precipitationChance*100 >= 20  {
+                if symbolName.contains(".drizzle"){
+                    Image(systemName: ("\(symbolName).fill"))
+                        .symbolRenderingMode(.multicolor)
+                        .font(.title3)
+                        .frame(width: UIScreen.screenWidth/16)
+                }
+                else  {
+                    Image(systemName: ("\(symbolName).rain.fill"))
+                        .symbolRenderingMode(.multicolor)
+                        .font(.title3)
+                        .frame(width: UIScreen.screenWidth/16)
+                }
+               
                 //.accessibilityLabel(weather.accesibilityText)
                 
                 // Only show precipitation if it exists

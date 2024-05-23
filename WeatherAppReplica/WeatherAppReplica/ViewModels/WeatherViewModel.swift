@@ -17,6 +17,7 @@ class WeatherViewModel : ObservableObject{
     @Published var errorMessage : String?
     @Published var weatherDescription : String = ""
     @Published var currentTemperature : Double = 0
+    @Published var currentWeatherSymbol : String = ""
     @Published var humidity : Int = 0
     @Published var dewPointDescription : Int = 0
     @Published var feelsLikeDescription : Double = 0
@@ -50,6 +51,7 @@ class WeatherViewModel : ObservableObject{
                         $0.date >= Date()
                     }.prefix(24).map { $0 } )
                     self?.currentTemperature = weather.currentWeather.temperature.value
+                    self?.currentWeatherSymbol = weather.currentWeather.symbolName
                     self?.humidity = Int(weather.currentWeather.humidity*100)
                     self?.dewPointDescription =  Int(weather.currentWeather.dewPoint.value.rounded())
                     self?.feelsLikeDescription = weather.currentWeather.apparentTemperature.value
@@ -64,7 +66,7 @@ class WeatherViewModel : ObservableObject{
                     }
                     self?.windCompassDirection = weather.currentWeather.wind.compassDirection.abbreviation
                     self?.precipitation = Int(weather.currentWeather.precipitationIntensity.value.rounded())
-                    
+                   
                 }
             }
             catch{
