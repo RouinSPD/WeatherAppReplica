@@ -22,7 +22,7 @@ struct DayForecastView: View {
             Spacer()
             temperatureBar
         }
-        //.padding(.trailing,5)
+        .frame(height: UIScreen.screenHeight/24)
         //.accessibilityLabel(Text(weather.accesibilityText))
         //.accessibilityElement(children: .combine)
         //
@@ -48,23 +48,34 @@ struct DayForecastView: View {
                     .fontWeight(.medium)
             }
             Spacer()
-        }.frame(width: UIScreen.screenWidth/6)
+        }
+        .frame(width: UIScreen.screenWidth/6)
+        
     }
     var weatherIcon : some View {
         // VStack for icon and precipitation probability
         VStack(spacing: 0) {
-            Image(systemName: ("\(dayWeather.symbolName).fill"))
-                .symbolRenderingMode(.multicolor)
-                .font(.title3)
-            //.accessibilityLabel(weather.accesibilityText)
-            // Only show precipitation if it exists
-            //                    if let precipitation = weather.precipitationProbability {
-            //                        Text("\(precipitation)%")
-            //                            .font(.caption)
-            //                            .foregroundStyle(.cyan)
-            //                            .bold()
-            //                    }
-                .frame(width: UIScreen.screenWidth/16)
+            if dayWeather.precipitationChance*100 >= 20 && !dayWeather.symbolName.contains("sun.max"){
+                Image(systemName: ("\(dayWeather.symbolName).rain.fill"))
+                    .symbolRenderingMode(.multicolor)
+                    .font(.title3)
+                    .frame(width: UIScreen.screenWidth/16)
+                //.accessibilityLabel(weather.accesibilityText)
+                
+                // Only show precipitation if it exists
+                Text("\(Int(dayWeather.precipitationChance*100))%")
+                    .font(.caption)
+                    .foregroundStyle(.cyan)
+                    .bold()
+                //            }
+            }
+            else {
+                Image(systemName: ("\(dayWeather.symbolName).fill"))
+                    .symbolRenderingMode(.multicolor)
+                    .font(.title3)
+                    .frame(width: UIScreen.screenWidth/16)
+                //.accessibilityLabel(weather.accesibilityText)
+            }
         }
     }
     var temperatureBar : some View {
@@ -77,9 +88,9 @@ struct DayForecastView: View {
                 .frame(width: 40)
             // .accessibilityLabel(Text("\(weather.temperatureLow)° low"))
             
-            
             // Temperature bar
             TemperatureBar(lowTemperature: dayWeather.lowTemperature.value, highTemperature: dayWeather.highTemperature.value, currentTemperature: currentTemperature, minScaleTemp: minScaleTemp, maxScaleTemp: maxScaleTemp)
+                .padding(.vertical, 0)
                 .frame(height: 8)
             
             Text((dayWeather.highTemperature.formatted(.measurement(numberFormatStyle: .number.precision(.fractionLength(0))))).dropLast(1))

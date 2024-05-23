@@ -64,6 +64,7 @@ class WeatherViewModel : ObservableObject{
                     }
                     self?.windCompassDirection = weather.currentWeather.wind.compassDirection.abbreviation
                     self?.precipitation = Int(weather.currentWeather.precipitationIntensity.value.rounded())
+                    
                 }
             }
             catch{
