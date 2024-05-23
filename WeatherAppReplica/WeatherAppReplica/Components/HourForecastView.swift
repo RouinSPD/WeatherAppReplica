@@ -17,10 +17,8 @@ struct HourForecastView: View {
                 .foregroundColor(.white)
                 .font(.headline)
             
-            Image(systemName: ("\(hourWeather.symbolName).fill"))
-                .symbolRenderingMode(.multicolor)
-                .frame(width: 20, height: 20)
-                .font(.headline)
+            WeatherIconView(precipitationChance: hourWeather.precipitationChance, symbolName: hourWeather.symbolName)
+                .padding(.vertical,5)
             
             Text((hourWeather.temperature.formatted(.measurement(numberFormatStyle: .number.precision(.fractionLength(0))))).dropLast(1))
                 .foregroundColor(.white)

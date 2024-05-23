@@ -18,7 +18,7 @@ struct DayForecastView: View {
         HStack(alignment: .center) {
             dayOfTheWeek
             Spacer()
-            weatherIcon
+            WeatherIconView(precipitationChance: dayWeather.precipitationChance, symbolName: dayWeather.symbolName)
             Spacer()
             temperatureBar
         }
