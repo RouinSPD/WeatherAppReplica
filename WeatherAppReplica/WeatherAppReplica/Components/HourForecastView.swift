@@ -15,7 +15,7 @@ struct HourForecastView: View {
         VStack{
             Text(hourWeather.date.formatAbbreviatedHour())
                 .foregroundColor(.white)
-                .font(.headline)
+                .font(.subheadline)
             
             WeatherIconView(precipitationChance: hourWeather.precipitationChance, symbolName: hourWeather.symbolName)
                 .padding(.vertical,5)

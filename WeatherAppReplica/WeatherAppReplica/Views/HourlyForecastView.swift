@@ -43,7 +43,7 @@ struct HourlyForecastView: View {
         VStack{
             Text("Now")
                 .foregroundColor(.white)
-                .font(.headline)
+                .font(.subheadline)
             
             Image(systemName: ("\(currentWeatherSymbol).fill"))
                 .symbolRenderingMode(.multicolor)
