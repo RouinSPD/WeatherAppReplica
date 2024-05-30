@@ -26,6 +26,8 @@
 		E01E80B92BF8E0CE00D6F2E7 /* UVIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01E80B82BF8E0CE00D6F2E7 /* UVIndexView.swift */; };
 		E01E80BB2BF8E1AF00D6F2E7 /* ColorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01E80BA2BF8E1AF00D6F2E7 /* ColorBar.swift */; };
 		E0B5C4112BFF570A00F850CD /* WeatherIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B5C4102BFF570A00F850CD /* WeatherIconView.swift */; };
+		E0B5C4132C07C8B000F850CD /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B5C4122C07C8B000F850CD /* BackgroundView.swift */; };
+		E0B5C4152C07C8FF00F850CD /* WeatherBackgroundIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B5C4142C07C8FF00F850CD /* WeatherBackgroundIconView.swift */; };
 		E0BB9AC82BFD375F00DF0E57 /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BB9AC72BFD375F00DF0E57 /* CompassView.swift */; };
 		E0BB9ACA2BFD378100DF0E57 /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BB9AC92BFD378100DF0E57 /* ArrowShape.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +54,8 @@
 		E01E80B82BF8E0CE00D6F2E7 /* UVIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexView.swift; sourceTree = "<group>"; };
 		E01E80BA2BF8E1AF00D6F2E7 /* ColorBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBar.swift; sourceTree = "<group>"; };
 		E0B5C4102BFF570A00F850CD /* WeatherIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIconView.swift; sourceTree = "<group>"; };
+		E0B5C4122C07C8B000F850CD /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		E0B5C4142C07C8FF00F850CD /* WeatherBackgroundIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherBackgroundIconView.swift; sourceTree = "<group>"; };
 		E0BB9AC72BFD375F00DF0E57 /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
 		E0BB9AC92BFD378100DF0E57 /* ArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowShape.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +119,7 @@
 				E0BB9AC72BFD375F00DF0E57 /* CompassView.swift */,
 				E007B7862BDD3D4A00A12A1B /* HourlyForecastView.swift */,
 				E01E80B42BF8DBA900D6F2E7 /* HumidityView.swift */,
+				E0B5C4122C07C8B000F850CD /* BackgroundView.swift */,
 				E01E80B62BF8DEAF00D6F2E7 /* VisibilityView.swift */,
 				E01E80B82BF8E0CE00D6F2E7 /* UVIndexView.swift */,
 			);
@@ -127,6 +132,7 @@
 				E007B78C2BDE9F8F00A12A1B /* DayForecastView.swift */,
 				E0B5C4102BFF570A00F850CD /* WeatherIconView.swift */,
 				E01E80B22BF8A02A00D6F2E7 /* TitleView.swift */,
+				E0B5C4142C07C8FF00F850CD /* WeatherBackgroundIconView.swift */,
 				E0BB9AC92BFD378100DF0E57 /* ArrowShape.swift */,
 				E007B78E2BDEBA4500A12A1B /* TemperatureBar.swift */,
 				E01E80BA2BF8E1AF00D6F2E7 /* ColorBar.swift */,
@@ -224,6 +230,7 @@
 				E0BB9ACA2BFD378100DF0E57 /* ArrowShape.swift in Sources */,
 				E007B7912BDF8FD200A12A1B /* TenDayForecastViewModel.swift in Sources */,
 				E01E80B72BF8DEAF00D6F2E7 /* VisibilityView.swift in Sources */,
+				E0B5C4132C07C8B000F850CD /* BackgroundView.swift in Sources */,
 				E007B7AF2BE16BB200A12A1B /* WeatherViewModel.swift in Sources */,
 				E01E80B52BF8DBA900D6F2E7 /* HumidityView.swift in Sources */,
 				E007B7782BDAB95000A12A1B /* ContentView.swift in Sources */,
@@ -231,6 +238,7 @@
 				E007B7762BDAB95000A12A1B /* WeatherAppReplicaApp.swift in Sources */,
 				E01E80BB2BF8E1AF00D6F2E7 /* ColorBar.swift in Sources */,
 				E0B5C4112BFF570A00F850CD /* WeatherIconView.swift in Sources */,
+				E0B5C4152C07C8FF00F850CD /* WeatherBackgroundIconView.swift in Sources */,
 				E007B7892BDD3DEB00A12A1B /* HourForecastView.swift in Sources */,
 				E01E80B32BF8A02A00D6F2E7 /* TitleView.swift in Sources */,
 			);

@@ -28,6 +28,9 @@ class WeatherViewModel : ObservableObject{
     @Published var windGust : Int = 0
     @Published var windCompassDirection : String = ""
     @Published var precipitation : Int = 0
+    @Published var sunrise : Date?
+    @Published var sunset : Date?
+    
     // var cancellables = Set<AnyCancellable>()
     private var weatherService = WeatherService()
     
@@ -58,15 +61,16 @@ class WeatherViewModel : ObservableObject{
                     self?.visibilityValue = Int((weather.currentWeather.visibility.value/1000).rounded())
                     self?.uvIndexValue = weather.currentWeather.uvIndex.value
                     self?.uvIndexDescription = weather.currentWeather.uvIndex.category.description
-//                    weather.currentWeather.cloudCover.animatableData
-//                    weather.currentWeather.precipitationIntensity.
+                    //                    weather.currentWeather.cloudCover.animatableData
+                    //                    weather.currentWeather.precipitationIntensity.
                     self?.windSpeed = Int(weather.currentWeather.wind.speed.value.rounded())
                     if let windGust = weather.currentWeather.wind.gust{
                         self?.windGust = Int(windGust.value.rounded())
                     }
                     self?.windCompassDirection = weather.currentWeather.wind.compassDirection.abbreviation
                     self?.precipitation = Int(weather.currentWeather.precipitationIntensity.value.rounded())
-                   
+                    self?.sunrise = weather.dailyForecast.first?.sun.sunrise
+                    self?.sunset = weather.dailyForecast.first?.sun.sunset
                 }
             }
             catch{
@@ -84,6 +88,15 @@ class WeatherViewModel : ObservableObject{
         var maxT = dailyForecasts.max(by: {$0.highTemperature.value < $1.highTemperature.value})?.highTemperature.value ?? 50.0
         var minT = dailyForecasts.min(by: {$0.lowTemperature.value < $1.lowTemperature.value})?.lowTemperature.value ?? 0.0
         return(maxTemp: maxT, minTemp: minT)
+    }
+    
+    func isPastSunset() -> Bool {
+        guard let sunsetTime = sunset else { return false }
+        return Date() > sunsetTime
+    }
+    func isPastSunrise() -> Bool {
+        guard let sunriseTime = sunrise else {return false}
+        return Date() > sunriseTime
     }
     
 }

@@ -17,6 +17,7 @@ struct DayForecastView: View {
         
         HStack(alignment: .center) {
             dayOfTheWeek
+            let _ = print("\(dayWeather.date.formatAbbreviatedDay())")
             Spacer()
             WeatherIconView(precipitationChance: dayWeather.precipitationChance, symbolName: dayWeather.symbolName)
             Spacer()
@@ -52,32 +53,35 @@ struct DayForecastView: View {
         .frame(width: UIScreen.screenWidth/6)
         
     }
-    var weatherIcon : some View {
-        // VStack for icon and precipitation probability
-        VStack(spacing: 0) {
-            if dayWeather.precipitationChance*100 >= 20 && !dayWeather.symbolName.contains("sun.max"){
-                Image(systemName: ("\(dayWeather.symbolName).rain.fill"))
-                    .symbolRenderingMode(.multicolor)
-                    .font(.title3)
-                    .frame(width: UIScreen.screenWidth/16)
-                //.accessibilityLabel(weather.accesibilityText)
-                
-                // Only show precipitation if it exists
-                Text("\(Int(dayWeather.precipitationChance*100))%")
-                    .font(.caption)
-                    .foregroundStyle(.cyan)
-                    .bold()
-                //            }
-            }
-            else {
-                Image(systemName: ("\(dayWeather.symbolName).fill"))
-                    .symbolRenderingMode(.multicolor)
-                    .font(.title3)
-                    .frame(width: UIScreen.screenWidth/16)
-                //.accessibilityLabel(weather.accesibilityText)
-            }
-        }
-    }
+//    var weatherIcon : some View {
+//        // VStack for icon and precipitation probability
+//        VStack(spacing: 0) {
+//            if dayWeather.precipitationChance * 100 >= 20 &&
+//                !(dayWeather.symbolName.contains("sun.max") && dayWeather.symbolName.contains("cloud.rain")){
+//               let _ = print(dayWeather.symbolName)
+//                Image(systemName: ("\(dayWeather.symbolName).rain.fill"))
+//                    .symbolRenderingMode(.multicolor)
+//                    .font(.title3)
+//                    .frame(width: UIScreen.screenWidth/16)
+//                //.accessibilityLabel(weather.accesibilityText)
+//                
+//                // Only show precipitation if it exists
+//                Text("\(Int(dayWeather.precipitationChance*100))%")
+//                    .font(.caption)
+//                    .foregroundStyle(.cyan)
+//                    .bold()
+//                //            }
+//            }
+//            else {
+//                let _ = print(dayWeather.symbolName)
+//                Image(systemName: ("\(dayWeather.symbolName).fill"))
+//                    .symbolRenderingMode(.multicolor)
+//                    .font(.title3)
+//                    .frame(width: UIScreen.screenWidth/16)
+//                //.accessibilityLabel(weather.accesibilityText)
+//            }
+//        }
+//    }
     var temperatureBar : some View {
         HStack{
             Spacer()

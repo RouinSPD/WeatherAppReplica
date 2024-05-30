@@ -28,6 +28,9 @@ struct ContentView: View {
     //    }
     
     var body: some View {
+        ZStack{
+            let dayTime = weatherViewModel.isPastSunrise() && !weatherViewModel.isPastSunset()
+            BackgroundView(dayTime: dayTime, currentWeatherSymbol: weatherViewModel.currentWeatherSymbol)
         VStack {
             if weatherViewModel.isLoading {
                 ProgressView("Loading...")
@@ -42,14 +45,14 @@ struct ContentView: View {
                     HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts,  currentTemperature: weatherViewModel.currentTemperature, currentWeatherSymbol: weatherViewModel.currentWeatherSymbol)
                     let (maxTemp, minTemp) = weatherViewModel.temperatureExtremes()
                     TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts, maxTemp: maxTemp, minTemp: minTemp, currentTemperature: weatherViewModel.currentTemperature)
-            
+                    
                     HStack(spacing:15){
                         FeelsLikeView(feelsLikeDescription: weatherViewModel.feelsLikeDescription, currentTemperature: weatherViewModel.currentTemperature)
                         HumidityView(humidity: weatherViewModel.humidity, dewPoint: weatherViewModel.dewPointDescription)
                     }
                     HStack(spacing: 15){
                         VisibilityView(visibility: weatherViewModel.visibilityValue)
-//                        CompassView(direction: "WSW")
+                        //                        CompassView(direction: "WSW")
                         UVIndexView(uvIndexValue: weatherViewModel.uvIndexValue, uvIndexDescription: weatherViewModel.uvIndexDescription)
                     }
                 }
@@ -58,6 +61,7 @@ struct ContentView: View {
             }
         }
         .padding(.top)
+    }
         //.padding()
         .onAppear {
             locationManager.requestLocation()
