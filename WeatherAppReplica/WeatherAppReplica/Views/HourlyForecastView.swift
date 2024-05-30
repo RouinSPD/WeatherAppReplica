@@ -45,12 +45,14 @@ struct HourlyForecastView: View {
                 .foregroundColor(.white)
                 .font(.subheadline)
             
+            Spacer()
+            
             Image(systemName: ("\(currentWeatherSymbol).fill"))
                 .symbolRenderingMode(.multicolor)
                 .font(.title3)
                 .frame(width: UIScreen.screenWidth/16)
-                .padding(.vertical,5)
-           // Text((hourWeather.temperature.formatted(.measurement(numberFormatStyle: .number.precision(.fractionLength(0))))).dropLast(1))
+                Spacer()
+          
             Text("\(Int(currentTemperature.rounded()))°")
                 .foregroundColor(.white)
                 .font(.headline)

@@ -16,10 +16,10 @@ struct HourForecastView: View {
             Text(hourWeather.date.formatAbbreviatedHour())
                 .foregroundColor(.white)
                 .font(.subheadline)
-            
+            Spacer()
             WeatherIconView(precipitationChance: hourWeather.precipitationChance, symbolName: hourWeather.symbolName)
-                .padding(.vertical,5)
-            
+//                .padding(.vertical,5)
+            Spacer()
             Text((hourWeather.temperature.formatted(.measurement(numberFormatStyle: .number.precision(.fractionLength(0))))).dropLast(1))
                 .foregroundColor(.white)
                 .font(.headline)

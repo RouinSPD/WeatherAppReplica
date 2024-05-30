@@ -18,7 +18,8 @@ struct TemperatureBar: View {
         let totalScale = maxScaleTemp - minScaleTemp
         let rangeDayTemp = highTemperature - lowTemperature
         let width = UIScreen.screenWidth*0.25
-        
+        let lowOffset = ((width))*(lowTemperature-minScaleTemp)/totalScale
+        let highOffset = ((width))*(maxScaleTemp-highTemperature)/totalScale
         ZStack(alignment: .leading) {
             // Bottom rectangle (background)
             Rectangle()
@@ -29,10 +30,10 @@ struct TemperatureBar: View {
             
             // Gradient for the temperature range
             Rectangle()
-                .frame(width: width*(rangeDayTemp/totalScale), height: 5)
+                .frame(width: width-highOffset, height: 5)
                 .foregroundStyle(LinearGradient(gradient: Gradient(colors: [ Color.green, Color.yellow, Color.orange]), startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(20)
-                .offset(CGSize(width: ((width))*(lowTemperature-minScaleTemp)/totalScale, height: 0))
+                .offset(CGSize(width: lowOffset , height: 0))
                 .cornerRadius(20)
         }
     }
@@ -42,7 +43,7 @@ struct TemperatureBar: View {
 struct TemperatureBarView : View {
     var body: some View {
         Spacer()
-        TemperatureBar(lowTemperature: 14, highTemperature: 26, currentTemperature: 17, minScaleTemp: 14, maxScaleTemp: 28)
+        TemperatureBar(lowTemperature: 15, highTemperature: 29, currentTemperature: 21, minScaleTemp: 15, maxScaleTemp: 29)
         Spacer()
     }
 }
