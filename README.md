@@ -13,3 +13,22 @@ WeatherAppReplica is a project aimed at learning and demonstrating how to use Ap
 - **Visibility**: Shows the current visibility.
 - **UV Index**: Displays the current UV index.
 - **Animated Background**: The background changes dynamically based on the current hour and weather conditions.
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center;">
+    <div style="margin: 10px;">
+        <img src="https://github.com/RouinSPD/WeatherAppReplica/blob/main/weatherScreenshot1.png" alt="Screenshot 1" width="300"/>
+    </div>
+    <div style="margin: 10px;">
+        <img src="https://github.com/RouinSPD/WeatherAppReplica/blob/main/weatherScreenshot2.png" alt="Screenshot 2" width="300"/>
+    </div>
+    <div style="margin: 10px;">
+        <img src="https://github.com/RouinSPD/WeatherAppReplica/blob/main/weatherScreenshot3.PNG" alt="Screenshot 3" width="300"/>
+    </div>
+    <div style="margin: 10px;">
+        <img src="https://github.com/RouinSPD/WeatherAppReplica/blob/main/weatherScreenshot4.PNG" alt="Screenshot 4" width="300"/>
+    </div>
+</div>
+
+## Credits
+
+This project was developed by Pedro Daniel Rouin Salazar as a learning exercise to understand and implement WeatherKit and to replicate the UI of the iOS Weather app.
