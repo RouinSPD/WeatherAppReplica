@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct BackgroundView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     var dayTime : Bool
     var currentWeatherSymbol : String
     // Cloud data with different starting offsets and durations
@@ -19,7 +22,7 @@ struct BackgroundView: View {
 
     var body: some View {
         ZStack {
-            (dayTime ? Color.blue.opacity(0.85) : Color.blue.opacity(0.1))
+            (dayTime ? dayBackgroundColor : nightBackgroundColor)
                 .edgesIgnoringSafeArea(.all) // Blue background
             
             ForEach(icons) { icon in
@@ -27,6 +30,15 @@ struct BackgroundView: View {
             }
         }//.accessibilityElement(children: .ignore)
     }
+    
+    // Background colors for day and night with separate values for light and dark modes
+        var dayBackgroundColor: Color {
+            colorScheme == .dark ? Color.blue.opacity(0.85) : Color.blue.opacity(0.85)
+        }
+
+        var nightBackgroundColor: Color {
+            colorScheme == .dark ? Color.blue.opacity(0.1) : Color.black.opacity(4)
+        }
 }
 
 #Preview {

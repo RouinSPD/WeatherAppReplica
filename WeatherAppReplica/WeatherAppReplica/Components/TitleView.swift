@@ -15,6 +15,7 @@ struct TitleView: View {
             Label {
                 Text(title.uppercased())
                     .font(.caption)
+                    .foregroundStyle(.white)
             } icon: {
                 Image(systemName: imageName)
             }

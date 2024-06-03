@@ -39,7 +39,9 @@ struct ContentView: View {
             } else {
                 location
                 Text("\(Int(weatherViewModel.currentTemperature))°C | \(weatherViewModel.weatherDescription)")
-                Text("\(weatherViewModel.windCompassDirection)")
+                    .foregroundStyle(.white)
+                Text("Wind: \(weatherViewModel.windCompassDirection)")
+                    .foregroundStyle(.white)
                 
                 ScrollView {
                     HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts,  currentTemperature: weatherViewModel.currentTemperature, currentWeatherSymbol: weatherViewModel.currentWeatherSymbol)
@@ -80,6 +82,7 @@ struct ContentView: View {
                 if let cityName = locationManager.cityName {
                     Text("\(cityName)")
                         .font(.largeTitle)
+                        .foregroundStyle(.white)
                 }
             } else {
                 Text("Locating...")

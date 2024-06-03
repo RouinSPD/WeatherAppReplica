@@ -14,9 +14,11 @@ struct HumidityView: View {
         VStack(alignment: .leading){
             TitleView(title: "Humidity", imageName: "humidity.fill")
             Text("\(humidity)%")
+                .foregroundStyle(.white)
                 .font(.largeTitle)
             Spacer()
            Text("The dew point is \(dewPoint)° right now.")
+                .foregroundStyle(.white)
                 .font(.footnote)
                 .fontWeight(.light)
         }
