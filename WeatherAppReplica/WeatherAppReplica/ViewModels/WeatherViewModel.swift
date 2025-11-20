@@ -9,7 +9,11 @@ import Foundation
 import WeatherKit
 import CoreLocation
 
+@MainActor
 class WeatherViewModel : ObservableObject{
+    
+    private let service: WeatherProtocol
+    
     //MARK: Properties
     @Published var hourlyForecasts : [HourWeather] = []
     @Published var dailyForecasts : [DayWeather] = []
@@ -18,70 +22,65 @@ class WeatherViewModel : ObservableObject{
     @Published var weatherDescription : String = ""
     @Published var currentTemperature : Double = 0
     @Published var currentWeatherSymbol : String = ""
-    @Published var humidity : Int = 0
-    @Published var dewPointDescription : Int = 0
     @Published var feelsLikeDescription : Double = 0
     @Published var visibilityValue : Int = 0
     @Published var uvIndexValue : Int = 0
     @Published var uvIndexDescription : String = ""
-    @Published var windSpeed : Int = 0
-    @Published var windGust : Int = 0
-    @Published var windCompassDirection : String = ""
     @Published var precipitation : Int = 0
-    @Published var sunrise : Date?
-    @Published var sunset : Date?
+    @Published var humidity: Humidity = Humidity(humidity: 0, dewPoint: 0)
+    @Published var wind: Wind = Wind(speed: 0, gust: 0, compassDirection: "")
+    @Published var sun: Sun = Sun()
     
-    // var cancellables = Set<AnyCancellable>()
-    private var weatherService = WeatherService()
+//    // var cancellables = Set<AnyCancellable>()
+//    private var weatherService = WeatherService()
     
-    init(){
-        weatherService = WeatherService()
+    init(service: WeatherProtocol = WeatherKitService()){
+        self.service = service
     }
     
-    func fetchWeatherData(for location: CLLocation){
+    func fetchWeatherData(for location: CLLocation) async{
         isLoading = true
         errorMessage = nil
-        
-        Task{
             do{
-                let weather = try await weatherService.weather(for: location)
-                DispatchQueue.main.async{ [weak self] in
-                    //self?.weather = weather
-                    self?.weatherDescription = weather.currentWeather.condition.description
-                    self?.isLoading = false
-                    self?.dailyForecasts = weather.dailyForecast.forecast
-                    self?.hourlyForecasts = Array(weather.hourlyForecast.forecast.filter {
-                        $0.date >= Date()
-                    }.prefix(24).map { $0 } )
-                    self?.currentTemperature = weather.currentWeather.temperature.value
-                    self?.currentWeatherSymbol = weather.currentWeather.symbolName
-                    self?.humidity = Int(weather.currentWeather.humidity*100)
-                    self?.dewPointDescription =  Int(weather.currentWeather.dewPoint.value.rounded())
-                    self?.feelsLikeDescription = weather.currentWeather.apparentTemperature.value
-                    self?.visibilityValue = Int((weather.currentWeather.visibility.value/1000).rounded())
-                    self?.uvIndexValue = weather.currentWeather.uvIndex.value
-                    self?.uvIndexDescription = weather.currentWeather.uvIndex.category.description
-                    //                    weather.currentWeather.cloudCover.animatableData
-                    //                    weather.currentWeather.precipitationIntensity.
-                    self?.windSpeed = Int(weather.currentWeather.wind.speed.value.rounded())
-                    if let windGust = weather.currentWeather.wind.gust{
-                        self?.windGust = Int(windGust.value.rounded())
-                    }
-                    self?.windCompassDirection = weather.currentWeather.wind.compassDirection.abbreviation
-                    self?.precipitation = Int(weather.currentWeather.precipitationIntensity.value.rounded())
-                    self?.sunrise = weather.dailyForecast.first?.sun.sunrise
-                    self?.sunset = weather.dailyForecast.first?.sun.sunset
-                }
+                let weather = try await service.weather(for: location)
+                self.updateFromCurrentWeather(weather.currentWeather)
+                self.updateFromForecast(weather)
+                self.updateFromDayWeather(weather.dailyForecast.first)
+                self.isLoading = false
             }
             catch{
-                DispatchQueue.main.async{ [weak self] in
-                    self?.isLoading = false
-                    self?.errorMessage = error.localizedDescription
-                    
-                }
-                
+                    self.isLoading = false
+                    self.errorMessage = error.localizedDescription
             }
+    }
+    
+    
+    func updateFromCurrentWeather(_ current: CurrentWeather){
+        self.weatherDescription = current.condition.description
+        self.currentTemperature = current.temperature.value
+        self.currentWeatherSymbol = current.symbolName
+        self.feelsLikeDescription = current.apparentTemperature.value
+        self.visibilityValue = Int((current.visibility.value/1000).rounded())
+        self.uvIndexValue = current.uvIndex.value
+        self.uvIndexDescription = current.uvIndex.category.description
+        self.wind.compassDirection = current.wind.compassDirection.abbreviation
+        self.wind.speed = Int(current.wind.speed.value.rounded())
+        if let windGust = current.wind.gust{
+            self.wind.gust = Int(windGust.value.rounded())
         }
+        self.precipitation = Int(current.precipitationIntensity.value.rounded())
+        self.humidity.humidity = Int(current.humidity*100)
+        self.humidity.dewPoint =  Int(current.dewPoint.value.rounded())
+    }
+    
+    func updateFromForecast(_ weather: Weather){
+        self.dailyForecasts = weather.dailyForecast.forecast
+        self.hourlyForecasts = Array(weather.hourlyForecast.forecast.filter {$0.date >= Date()}.prefix(24).map { $0 } )
+    }
+    
+    func updateFromDayWeather(_ dayWeather: DayWeather?){
+        self.sun.sunrise = dayWeather?.sun.sunrise
+        self.sun.sunset = dayWeather?.sun.sunset
     }
     
     func temperatureExtremes() -> (maxTemp: Double, minTemp: Double){
@@ -91,11 +90,11 @@ class WeatherViewModel : ObservableObject{
     }
     
     func isPastSunset() -> Bool {
-        guard let sunsetTime = sunset else { return false }
+        guard let sunsetTime = sun.sunset else { return false }
         return Date() > sunsetTime
     }
     func isPastSunrise() -> Bool {
-        guard let sunriseTime = sunrise else {return false}
+        guard let sunriseTime = sun.sunrise else {return false}
         return Date() > sunriseTime
     }
     

@@ -40,7 +40,7 @@ struct ContentView: View {
                 location
                 Text("\(Int(weatherViewModel.currentTemperature))°C | \(weatherViewModel.weatherDescription)")
                     .foregroundStyle(.white)
-                Text("Wind: \(weatherViewModel.windCompassDirection)")
+                Text("Wind: \(weatherViewModel.wind.compassDirection)")
                     .foregroundStyle(.white)
                 
                 ScrollView {
@@ -50,7 +50,7 @@ struct ContentView: View {
                     
                     HStack(spacing:15){
                         FeelsLikeView(feelsLikeDescription: weatherViewModel.feelsLikeDescription, currentTemperature: weatherViewModel.currentTemperature)
-                        HumidityView(humidity: weatherViewModel.humidity, dewPoint: weatherViewModel.dewPointDescription)
+                        HumidityView(humidity: weatherViewModel.humidity.humidity, dewPoint: weatherViewModel.humidity.dewPoint)
                     }
                     HStack(spacing: 15){
                         VisibilityView(visibility: weatherViewModel.visibilityValue)
@@ -70,7 +70,9 @@ struct ContentView: View {
         }
         .onChange(of: locationManager.currentLocation) { newLocation in
             if let location = newLocation {
-                weatherViewModel.fetchWeatherData(for: location)
+                Task{
+                    await weatherViewModel.fetchWeatherData(for: location)
+                }
             }
         }
         
