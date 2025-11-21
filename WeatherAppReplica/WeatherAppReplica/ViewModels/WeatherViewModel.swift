@@ -37,9 +37,9 @@ class WeatherViewModel : ObservableObject{
         errorMessage = nil
             do{
                 let weather = try await service.weather(for: location)
-                self.updateFromCurrentWeather(weather.currentWeather)
-                self.updateFromForecast(weather)
-                self.updateFromDayWeather(weather.dailyForecast.first)
+                self.updatCurrentConditions(weather.currentWeather)
+                self.updateForecastData(weather)
+                self.updateSunInfo(weather.dailyForecast.first)
                 self.isLoading = false
             }
             catch{
@@ -49,7 +49,7 @@ class WeatherViewModel : ObservableObject{
     }
     
     
-    func updateFromCurrentWeather(_ current: CurrentWeather){
+    private func updatCurrentConditions(_ current: CurrentWeather){
         updateCurrentWeatherInfo(from: current)
         updateWind(from: current.wind)
         updateUVIndex(from: current.uvIndex)
@@ -81,7 +81,7 @@ class WeatherViewModel : ObservableObject{
         self.currentWeatherInfo.precipitation = Int(current.precipitationIntensity.value.rounded())
     }
     
-    func updateFromForecast(_ weather: Weather){
+    private func updateForecastData(_ weather: Weather){
         //creates a unique date for that moment
         let now = Date()
         self.dailyForecasts = weather.dailyForecast.forecast
@@ -90,7 +90,7 @@ class WeatherViewModel : ObservableObject{
             .prefix(24))
     }
     
-    func updateFromDayWeather(_ dayWeather: DayWeather?){
+    private func updateSunInfo(_ dayWeather: DayWeather?){
         guard let dayWeather = dayWeather else{
             self.sun.sunrise = nil
             self.sun.sunset = nil
