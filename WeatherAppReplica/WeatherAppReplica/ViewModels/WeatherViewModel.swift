@@ -82,8 +82,12 @@ class WeatherViewModel : ObservableObject{
     }
     
     func updateFromForecast(_ weather: Weather){
+        //creates a unique date for that moment
+        let now = Date()
         self.dailyForecasts = weather.dailyForecast.forecast
-        self.hourlyForecasts = Array(weather.hourlyForecast.forecast.filter {$0.date >= Date()}.prefix(24).map { $0 } )
+        self.hourlyForecasts = Array(weather.hourlyForecast.forecast
+            .filter {$0.date >= now}
+            .prefix(24))
     }
     
     func updateFromDayWeather(_ dayWeather: DayWeather?){
