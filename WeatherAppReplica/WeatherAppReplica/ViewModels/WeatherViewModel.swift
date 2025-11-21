@@ -19,14 +19,8 @@ class WeatherViewModel : ObservableObject{
     @Published var dailyForecasts : [DayWeather] = []
     @Published var isLoading : Bool = false
     @Published var errorMessage : String?
-    @Published var weatherDescription : String = ""
-    @Published var currentTemperature : Double = 0
-    @Published var currentWeatherSymbol : String = ""
-    @Published var feelsLikeDescription : Double = 0
-    @Published var visibilityValue : Int = 0
-    @Published var uvIndexValue : Int = 0
-    @Published var uvIndexDescription : String = ""
-    @Published var precipitation : Int = 0
+    @Published var currentWeatherInfo: CurrentWeatherInfo = CurrentWeatherInfo(description: "", temperature: 0, symbol: "", feelsLike: 0, precipitation: 0, visibility: 0)
+    @Published var uvIndex: UVIndex = UVIndex(value: 0, description: "")
     @Published var humidity: Humidity = Humidity(humidity: 0, dewPoint: 0)
     @Published var wind: Wind = Wind(speed: 0, gust: 0, compassDirection: "")
     @Published var sun: Sun = Sun()
@@ -56,19 +50,19 @@ class WeatherViewModel : ObservableObject{
     
     
     func updateFromCurrentWeather(_ current: CurrentWeather){
-        self.weatherDescription = current.condition.description
-        self.currentTemperature = current.temperature.value
-        self.currentWeatherSymbol = current.symbolName
-        self.feelsLikeDescription = current.apparentTemperature.value
-        self.visibilityValue = Int((current.visibility.value/1000).rounded())
-        self.uvIndexValue = current.uvIndex.value
-        self.uvIndexDescription = current.uvIndex.category.description
+        self.currentWeatherInfo.description = current.condition.description
+        self.currentWeatherInfo.temperature = current.temperature.value
+        self.currentWeatherInfo.symbol = current.symbolName
+        self.currentWeatherInfo.feelsLike = current.apparentTemperature.value
+        self.currentWeatherInfo.visibility = Int((current.visibility.value/1000).rounded())
+        self.uvIndex.value = current.uvIndex.value
+        self.uvIndex.description = current.uvIndex.category.description
         self.wind.compassDirection = current.wind.compassDirection.abbreviation
         self.wind.speed = Int(current.wind.speed.value.rounded())
         if let windGust = current.wind.gust{
             self.wind.gust = Int(windGust.value.rounded())
         }
-        self.precipitation = Int(current.precipitationIntensity.value.rounded())
+        self.currentWeatherInfo.precipitation = Int(current.precipitationIntensity.value.rounded())
         self.humidity.humidity = Int(current.humidity*100)
         self.humidity.dewPoint =  Int(current.dewPoint.value.rounded())
     }
@@ -84,8 +78,8 @@ class WeatherViewModel : ObservableObject{
     }
     
     func temperatureExtremes() -> (maxTemp: Double, minTemp: Double){
-        var maxT = dailyForecasts.max(by: {$0.highTemperature.value < $1.highTemperature.value})?.highTemperature.value ?? 50.0
-        var minT = dailyForecasts.min(by: {$0.lowTemperature.value < $1.lowTemperature.value})?.lowTemperature.value ?? 0.0
+        let maxT = dailyForecasts.max(by: {$0.highTemperature.value < $1.highTemperature.value})?.highTemperature.value ?? 50.0
+        let minT = dailyForecasts.min(by: {$0.lowTemperature.value < $1.lowTemperature.value})?.lowTemperature.value ?? 0.0
         return(maxTemp: maxT, minTemp: minT)
     }
     

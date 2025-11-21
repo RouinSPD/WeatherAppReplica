@@ -28,3 +28,17 @@ struct Humidity {
     var humidity: Int
     var dewPoint: Int
 }
+
+struct UVIndex {
+    var value: Int
+    var description: String
+}
+
+struct CurrentWeatherInfo{
+    var description: String
+    var temperature: Double
+    var symbol: String
+    var feelsLike: Double
+    var precipitation: Int
+    var visibility: Int
+}
