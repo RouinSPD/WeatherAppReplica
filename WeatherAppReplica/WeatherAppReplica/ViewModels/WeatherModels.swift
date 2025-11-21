@@ -13,7 +13,7 @@ struct CurrentConditions {
     var description: String
 }
 
-struct Wind {
+struct WindInfo {
     var speed: Int
     var gust: Int
     var compassDirection: String
@@ -29,7 +29,7 @@ struct Humidity {
     var dewPoint: Int
 }
 
-struct UVIndex {
+struct UVIndexInfo {
     var value: Int
     var description: String
 }

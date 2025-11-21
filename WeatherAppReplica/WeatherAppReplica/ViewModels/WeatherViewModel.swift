@@ -20,9 +20,9 @@ class WeatherViewModel : ObservableObject{
     @Published var isLoading : Bool = false
     @Published var errorMessage : String?
     @Published var currentWeatherInfo: CurrentWeatherInfo = CurrentWeatherInfo(description: "", temperature: 0, symbol: "", feelsLike: 0, precipitation: 0, visibility: 0)
-    @Published var uvIndex: UVIndex = UVIndex(value: 0, description: "")
+    @Published var uvIndex: UVIndexInfo = UVIndexInfo(value: 0, description: "")
     @Published var humidity: Humidity = Humidity(humidity: 0, dewPoint: 0)
-    @Published var wind: Wind = Wind(speed: 0, gust: 0, compassDirection: "")
+    @Published var wind: WindInfo = WindInfo(speed: 0, gust: 0, compassDirection: "")
     @Published var sun: Sun = Sun()
     
 //    // var cancellables = Set<AnyCancellable>()
@@ -50,21 +50,35 @@ class WeatherViewModel : ObservableObject{
     
     
     func updateFromCurrentWeather(_ current: CurrentWeather){
+        updateCurrentWeatherInfo(from: current)
+        updateWind(from: current.wind)
+        updateUVIndex(from: current.uvIndex)
+        updateHumidity(from: current)
+    }
+    
+    private func updateWind(from wind: Wind){
+        self.wind.compassDirection = wind.compassDirection.abbreviation
+        self.wind.speed = Int(wind.speed.value.rounded())
+        self.wind.gust = Int(wind.gust?.value.rounded() ?? 0)
+    }
+    
+    private func updateUVIndex(from uvIndex: UVIndex){
+        self.uvIndex.value = uvIndex.value
+        self.uvIndex.description = uvIndex.category.description
+    }
+    
+    private func updateHumidity(from current: CurrentWeather){
+        self.humidity.humidity = Int(current.humidity*100)
+        self.humidity.dewPoint =  Int(current.dewPoint.value.rounded())
+    }
+    
+    private func updateCurrentWeatherInfo(from current: CurrentWeather){
         self.currentWeatherInfo.description = current.condition.description
         self.currentWeatherInfo.temperature = current.temperature.value
         self.currentWeatherInfo.symbol = current.symbolName
         self.currentWeatherInfo.feelsLike = current.apparentTemperature.value
         self.currentWeatherInfo.visibility = Int((current.visibility.value/1000).rounded())
-        self.uvIndex.value = current.uvIndex.value
-        self.uvIndex.description = current.uvIndex.category.description
-        self.wind.compassDirection = current.wind.compassDirection.abbreviation
-        self.wind.speed = Int(current.wind.speed.value.rounded())
-        if let windGust = current.wind.gust{
-            self.wind.gust = Int(windGust.value.rounded())
-        }
         self.currentWeatherInfo.precipitation = Int(current.precipitationIntensity.value.rounded())
-        self.humidity.humidity = Int(current.humidity*100)
-        self.humidity.dewPoint =  Int(current.dewPoint.value.rounded())
     }
     
     func updateFromForecast(_ weather: Weather){
