@@ -91,8 +91,13 @@ class WeatherViewModel : ObservableObject{
     }
     
     func updateFromDayWeather(_ dayWeather: DayWeather?){
-        self.sun.sunrise = dayWeather?.sun.sunrise
-        self.sun.sunset = dayWeather?.sun.sunset
+        guard let dayWeather = dayWeather else{
+            self.sun.sunrise = nil
+            self.sun.sunset = nil
+            return
+        }
+        self.sun.sunrise = dayWeather.sun.sunrise
+        self.sun.sunset = dayWeather.sun.sunset
     }
     
     func temperatureExtremes() -> (maxTemp: Double, minTemp: Double){
