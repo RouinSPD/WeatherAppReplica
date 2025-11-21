@@ -30,7 +30,7 @@ struct ContentView: View {
     var body: some View {
         ZStack{
             let dayTime = weatherViewModel.isPastSunrise() && !weatherViewModel.isPastSunset()
-            BackgroundView(dayTime: dayTime, currentWeatherSymbol: weatherViewModel.currentWeatherInfo.symbol)
+            BackgroundView(dayTime: dayTime, currentWeatherSymbol: weatherViewModel.currentConditions.symbol)
         VStack {
             if weatherViewModel.isLoading {
                 ProgressView("Loading...")
@@ -38,22 +38,22 @@ struct ContentView: View {
                     .scaleEffect(2)
             } else {
                 location
-                Text("\(Int(weatherViewModel.currentWeatherInfo.temperature))°C | \(weatherViewModel.currentWeatherInfo.description)")
+                Text("\(Int(weatherViewModel.currentConditions.temperature))°C | \(weatherViewModel.currentConditions.description)")
                     .foregroundStyle(.white)
                 Text("Wind: \(weatherViewModel.wind.compassDirection)")
                     .foregroundStyle(.white)
                 
                 ScrollView {
-                    HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts,  currentTemperature: weatherViewModel.currentWeatherInfo.temperature, currentWeatherSymbol: weatherViewModel.currentWeatherInfo.symbol)
-                    let (maxTemp, minTemp) = weatherViewModel.temperatureExtremes()
-                    TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts, maxTemp: maxTemp, minTemp: minTemp, currentTemperature: weatherViewModel.currentWeatherInfo.temperature)
+                    HourlyForecastView(hourlyForecast: weatherViewModel.hourlyForecasts,  currentTemperature: weatherViewModel.currentConditions.temperature, currentWeatherSymbol: weatherViewModel.currentConditions.symbol)
+                    let (maxTemp, minTemp) = weatherViewModel.dailyForecasts.temperatureExtremes()
+                    TenDayForecastView(daysForecast: weatherViewModel.dailyForecasts, maxTemp: maxTemp, minTemp: minTemp, currentTemperature: weatherViewModel.currentConditions.temperature)
                     
                     HStack(spacing:15){
-                        FeelsLikeView(feelsLikeDescription: weatherViewModel.currentWeatherInfo.feelsLike, currentTemperature: weatherViewModel.currentWeatherInfo.temperature)
+                        FeelsLikeView(feelsLikeDescription: weatherViewModel.currentConditions.feelsLike, currentTemperature: weatherViewModel.currentConditions.temperature)
                         HumidityView(humidity: weatherViewModel.humidity.humidity, dewPoint: weatherViewModel.humidity.dewPoint)
                     }
                     HStack(spacing: 15){
-                        VisibilityView(visibility: weatherViewModel.currentWeatherInfo.visibility)
+                        VisibilityView(visibility: weatherViewModel.currentConditions.visibility)
                         //                        CompassView(direction: "WSW")
                         UVIndexView(uvIndexValue: weatherViewModel.uvIndex.value, uvIndexDescription: weatherViewModel.uvIndex.description)
                     }
