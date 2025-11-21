@@ -30,6 +30,9 @@ class LocationManager: NSObject, ObservableObject {
     /// Internal CLGeocoder instance used for reverse geocoding.
     private let geocoder = CLGeocoder()  // For reverse geocoding
     
+    /// Minimum distance (in meters) before updating location
+    private let minimumDistanceForUpdate: CLLocationDistance = 500
+    
     /// Initializes a new instance of `LocationManager`.
     ///
     /// This sets up the desired accuracy, distance filter, authorization request,
@@ -39,7 +42,7 @@ class LocationManager: NSObject, ObservableObject {
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         // Minimum distance (in meters) before update
-        locationManager.distanceFilter = 100
+        locationManager.distanceFilter = minimumDistanceForUpdate
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
     }
@@ -112,7 +115,7 @@ extension LocationManager: CLLocationManagerDelegate{
         // Compare new location with the previous one
         let distance = newLocation.distance(from: lastLocation) // distance in meters
         
-        if distance >= 500 { // Only update if moved more than 500 meters
+        if distance >= minimumDistanceForUpdate { // Only update if moved more than 500 meters
             DispatchQueue.main.async {
                 self.currentLocation = newLocation
             }
